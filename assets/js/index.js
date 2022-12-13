@@ -1,17 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("imported!")
-  console.log(loadQuotes())
+  loadQuotes("sample")
 })
 
 function loadQuotes(tag = "random") {
-  var url = "/assets/sample.json"
-  switch (tag) {
-    case "random":
-      // url = "https://animechan.vercel.app/api/quotes"
+  var url = ""
+
+  if (tag === "sample") {
+    url = "/assets/sample.json"
+  } else if (tag === "random") {
+    url = "https://animechan.vercel.app/api/quotes"
   }
+
   fetch(url)
     .then(response => response.json())
     .then(data => {
+      const container = document.querySelector("#page-container")
+      container.innerHTML = ""
       data.forEach(item => {
         renderCard(item)
       })
